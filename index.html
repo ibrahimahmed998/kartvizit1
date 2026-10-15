@@ -27,9 +27,20 @@
   .underline { width:40px; height:2px; background:var(--orange); margin:17px auto 20px; }
   .departments { padding:0 24px 24px; }
   details { margin:0 0 12px; border-radius:13px; overflow:hidden; background:var(--navy); }
-  summary { list-style:none; cursor:pointer; padding:21px 16px; color:var(--orange);
-             font-size:12px; font-weight:800; letter-spacing:2px; display:flex;
-             align-items:center; justify-content:space-between; }
+ summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 21px 16px;
+    color: var(--orange);
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 900;
+    -webkit-text-stroke: 0.4px currentColor;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
   summary::-webkit-details-marker { display:none; }
   summary::after { content:'⌄'; font-size:17px; line-height:10px; color:var(--orange); }
   details[open] summary::after { content:'⌃'; }
