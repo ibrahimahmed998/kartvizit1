@@ -69,6 +69,34 @@
     font-size: 12px;
 }
 
+/* Kişilere Ekle butonu */
+.add-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0 12px;
+    padding: 10px 16px;
+    border: 1px solid #d6e2ef;
+    border-radius: 8px;
+    background: #f0f6fc;
+    color: #1769aa;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.add-contact-btn:hover {
+    background: #e1edf9;
+}
+
+.add-contact-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
 </style>
 </head>
 <body>
@@ -250,5 +278,122 @@
     });
   });
 </script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const departments = document.querySelectorAll(
+        "main.departments details"
+    );
+
+    departments.forEach(function (department) {
+        const person = department.querySelector(".person");
+        const nameElement = person?.querySelector(".name");
+
+        if (!person || !nameElement) return;
+
+        // Aynı butonun iki defa eklenmesini önle
+        if (person.querySelector(".add-contact-btn")) return;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "add-contact-btn";
+        button.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <circle cx="9" cy="8" r="4"></circle>
+                <path d="M3 21v-2a6 6 0 0 1 12 0v2"></path>
+                <path d="M19 8v6M16 11h6"></path>
+            </svg>
+            Kişilere Ekle
+        `;
+
+        nameElement.insertAdjacentElement("afterend", button);
+
+        button.addEventListener("click", function () {
+            const fullName = nameElement.textContent.trim();
+            const nameParts = fullName.split(/\s+/);
+            const firstName = nameParts.shift() || "";
+            const lastName = nameParts.join(" ");
+
+            // Departman adı: GENERAL MANAGER, SALES vb.
+            const jobTitle =
+                department.querySelector("summary")?.textContent.trim() || "";
+
+            // Telefon ve e-posta bilgilerini mevcut HTML'den al
+            const phoneLink = person.querySelector(
+                'a[href^="tel:"]'
+            );
+            const emailLink = person.querySelector(
+                'a[href^="mailto:"]'
+            );
+
+            const phone = phoneLink
+                ? phoneLink.getAttribute("href").replace(/^tel:/i, "")
+                : "";
+
+            const email = emailLink
+                ? emailLink.getAttribute("href")
+                    .replace(/^mailto:/i, "")
+                    .split("?")[0]
+                : "";
+
+            const company = "Ceotherm Industrial Furnace Systems";
+            const website = "https://www.ceotherm.com/";
+
+            // vCard metnindeki özel karakterleri kaçır
+            function escapeVCard(value) {
+                return String(value || "")
+                    .replace(/\\/g, "\\\\")
+                    .replace(/\r\n|\r|\n/g, "\\n")
+                    .replace(/;/g, "\\;")
+                    .replace(/,/g, "\\,");
+            }
+
+            const vcard = [
+                "BEGIN:VCARD",
+                "VERSION:3.0",
+                "N:" + escapeVCard(lastName) + ";" +
+                    escapeVCard(firstName) + ";;;",
+                "FN:" + escapeVCard(fullName),
+                "ORG:" + escapeVCard(company),
+                "TITLE:" + escapeVCard(jobTitle),
+                ...(phone ? ["TEL;TYPE=CELL:" +
+                    escapeVCard(phone)] : []),
+                ...(email ? ["EMAIL;TYPE=INTERNET:" +
+                    escapeVCard(email)] : []),
+                "URL:" + website,
+                "END:VCARD"
+            ].join("\r\n") + "\r\n";
+
+            const blob = new Blob(
+                [vcard],
+                { type: "text/vcard;charset=utf-8" }
+            );
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            const safeName = fullName
+                .replace(/[<>:"/\\|?*\x00-\x1F]/g, "_");
+
+            link.href = url;
+            link.download = safeName + ".vcf";
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setTimeout(function () {
+                URL.revokeObjectURL(url);
+            }, 1000);
+        });
+    });
+});
+</script>
+</body>
+</html>
+
 </body>
 </html>
