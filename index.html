@@ -79,6 +79,100 @@
     overflow: hidden;
 }
 
+/* Mobilde kartviziti daha kompakt yap */
+@media (max-width: 480px) {
+    body {
+        padding: 4px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: none;
+        border-radius: 14px;
+    }
+
+    .top {
+        min-height: 36px;
+        padding: 6px;
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .brand {
+        padding: 10px 12px;
+    }
+
+    .logo {
+        max-width: 220px;
+        max-height: 90px;
+        width: 100%;
+        object-fit: contain;
+        margin-bottom: 8px;
+    }
+
+    .brand h1 {
+        font-size: 17px;
+    }
+
+    .underline {
+        margin: 8px auto 10px;
+    }
+
+    .departments {
+        padding: 0 12px 10px;
+    }
+
+    .departments details {
+        margin-bottom: 6px;
+    }
+
+    .departments summary,
+    .references summary {
+        min-height: 0;
+        padding: 11px 12px;
+        font-size: 10px;
+        letter-spacing: 1.2px;
+    }
+
+    .person {
+        padding: 8px;
+    }
+
+    .name {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+
+    .row {
+        padding: 7px;
+        margin-bottom: 6px;
+        gap: 7px;
+    }
+
+    .ico {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .value {
+        font-size: 12px;
+    }
+
+    .footer {
+        padding: 10px;
+    }
+
+    .social {
+        gap: 8px;
+    }
+
+    .social a {
+        width: 34px;
+        height: 34px;
+    }
+}
+
 /* Üst köşeleri çerçeveyle uyumlu yap */
 .top {
     border-bottom: 2px solid var(--orange);
