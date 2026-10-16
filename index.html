@@ -95,25 +95,57 @@
         border-radius: 20px;
     }
 }
-.pdf-buttons a {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 10px 0;
-    padding: 12px 4px;
+.references {
+    margin: 0 24px 12px;
+    border-radius: 13px;
+    overflow: hidden;
     background: var(--navy);
-    color: #fff;
+}
+
+.references summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 21px 16px;
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.references summary::-webkit-details-marker {
+    display: none;
+}
+
+.references summary::after {
+    content: "⌄";
+    font-size: 17px;
+}
+
+.references[open] summary::after {
+    content: "⌃";
+}
+
+.references-content {
+    padding: 8px 12px 12px;
+    border-top: 1px solid rgba(255,255,255,.15);
+}
+
+.references-content a {
+    display: block;
+    padding: 12px 4px;
+    color: white;
     text-align: center;
-    text-decoration: none;
-    border-radius: 12px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
+    text-decoration: none;
     white-space: nowrap;
 }
 
-.pdf-button:hover {
-    background: var(--orange);
-    color: #fff;
+.references-content a + a {
+    border-top: 1px solid rgba(255,255,255,.15);
 }
   summary::-webkit-details-marker { display:none; }
   summary::after { content:'⌄'; font-size:17px; line-height:10px; color:var(--orange); }
@@ -307,17 +339,21 @@
       </div>
     </details>
 
-<div class="pdf-buttons">
-    <a href="CeoTherm%20Demir%C3%87elik%20References%20.pdf"
-       target="_blank" rel="noopener noreferrer">
-        📄 Iron & Steel References
-    </a>
+<details class="references">
+    <summary>REFERENCES</summary>
 
-    <a href="2026-References%20-%20CeoTherm%20Aluminum%20CastHouse%20Customers.pdf"
-       target="_blank" rel="noopener noreferrer">
-        📄 Aluminum References
-    </a>
-</div>
+    <div class="references-content">
+        <a href="CeoTherm%20Demir%C3%87elik%20References%20.pdf"
+           target="_blank" rel="noopener noreferrer">
+            📄 Iron &amp; Steel References
+        </a>
+
+        <a href="2026-References%20-%20CeoTherm%20Aluminum%20CastHouse%20Customers.pdf"
+           target="_blank" rel="noopener noreferrer">
+            📄 Aluminum References
+        </a>
+    </div>
+</details>
 
   </main>
 
